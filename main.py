@@ -2,7 +2,7 @@ import cv2
 import torch
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='weights/crowdhuman_nano.pt', device=device)
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='weights/ppe_nano.pt', device=device)
 
 model.conf = 0.6
 
