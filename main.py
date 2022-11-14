@@ -69,10 +69,11 @@ def main(input_video_path, perfomance_test, save_video):
         if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
     
-    loop_time = time.time()
+    loop_time = time.time() - start_time
 
     cap.release()
-    out.release()
+    if save_video:
+        out.release()
     cv2.destroyAllWindows()
 
     if perfomance_test:
