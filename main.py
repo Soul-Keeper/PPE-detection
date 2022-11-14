@@ -1,6 +1,8 @@
 import cv2
 import torch
 
+from my_utils import check_center, sqr_of_2_boxes, draw
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='weights/ppe_nano.pt', device=device)
 
@@ -14,21 +16,27 @@ while ret:
     
     pred = model(frame)
     pred = pred.pandas().xyxy[0]
+
+    persons_data = pred.loc[pred['class'] == 0].copy()
+    persons_data["helm"] = None
+
+    ppe_data = pred.loc[pred['class'] != 0].copy()
+    ppe_data["used"] = None
     
-    for index, row in pred.iterrows():
-        color = (0, 0, 255)
-        thickness = 2
-        font = cv2.FONT_HERSHEY_SIMPLEX
+    for index_person, row_person in persons_data.iterrows():
+        person_box = row_person.to_numpy()[:4].astype(int)
+        for index_ppe, row_ppe in ppe_data.iterrows():
+            ppe_box = row_ppe.to_numpy()[:4].astype(int)
+            if row_ppe['used'] == None:
+                if (sqr_of_2_boxes(ppe_box, person_box) != 0) and (check_center(ppe_box, person_box)):
+                    persons_data['helm'] = index_ppe
+                    row_ppe['used'] = True
 
-
-        p1 = (int(row['xmin']), int(row['ymin']))
-        p2 = (int(row['xmax']), int(row['ymax']))
-        draw_frame = cv2.rectangle(frame, p1, p2, color, thickness)
-
-        text = row['name'] + ' ' + str(round(row['confidence'], 2))
-        cv2.putText(draw_frame, text, p1, font, 0.5, color, thickness - 1, cv2.LINE_AA)
-
-    cv2.imshow('test', draw_frame)
+    if not persons_data.empty:
+        draw_frame = draw(persons_data, ppe_data, frame)
+        cv2.imshow('test', draw_frame)
+    else:
+        cv2.imshow('test', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
             break
