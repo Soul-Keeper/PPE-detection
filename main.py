@@ -26,17 +26,13 @@ def main(input_video_path, perfomance_test, save_video):
         fourcc = cv2.VideoWriter_fourcc(*'MP4V')
         out = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 
-    ret = True
     start_time = time.time()
     num_frames = 0
-    while ret:
+    while True:
         ret, frame = cap.read()
+        if not ret:
+            break
         num_frames += 1
-
-        if num_frames == 100:
-            nvsmi = nvidia_smi.getInstance()
-            gpu_loop = nvsmi.DeviceQuery('memory.free, memory.total')
-            ram_loop = psutil.virtual_memory()[4]
         
         pred = model(frame)
         pred = pred.pandas().xyxy[0]
@@ -47,6 +43,11 @@ def main(input_video_path, perfomance_test, save_video):
         ppe_data = pred.loc[pred['class'] != 0].copy()
         ppe_data["used"] = None
         
+        if num_frames == 300:
+            nvsmi = nvidia_smi.getInstance()
+            gpu_loop = nvsmi.DeviceQuery('memory.free, memory.total')
+            ram_loop = psutil.virtual_memory()[4]
+
         for index_person, row_person in persons_data.iterrows():
             person_box = row_person.to_numpy()[:4].astype(int)
             for index_ppe, row_ppe in ppe_data.iterrows():
@@ -83,7 +84,7 @@ def main(input_video_path, perfomance_test, save_video):
         print("fps: {} || ram_usage: {} || gpu_memory_usage: {} MiB".format(round(fps, 3), ram_usage, gpu_memory_usage))
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--video_path', default='videos/test.mp4')
+parser.add_argument('--video_path', default='videos/test_short.mp4')
 parser.add_argument('--save_video', default=False)
 parser.add_argument('--perfomance_test', default=False)
 args = parser.parse_args()
