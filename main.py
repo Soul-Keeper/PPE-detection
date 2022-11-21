@@ -84,8 +84,8 @@ def main(input_video_path, perfomance_test, save_video):
         print("fps: {} || ram_usage: {} || gpu_memory_usage: {} MiB".format(round(fps, 3), ram_usage, gpu_memory_usage))
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--video_path', default='videos/test_short.mp4')
-parser.add_argument('--save_video', default=False)
+parser.add_argument('--video_path', default='videos/test.mp4')
+parser.add_argument('--save_video', default=True)
 parser.add_argument('--perfomance_test', default=False)
 args = parser.parse_args()
 
