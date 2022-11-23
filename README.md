@@ -20,4 +20,11 @@ python main.py
 Процесс выбора данных, результаты обучения моделей и многое другое представлены в [отчете](https://github.com/Soul-Keeper/PPE-detection/blob/main/отчёт.docx)
 
 ## Пример
-https://github.com/Soul-Keeper/PPE-detection/blob/main/result.mp4
+Пример работы модуля представлен ниже
+
+
+https://user-images.githubusercontent.com/60879213/203539565-6d996ab9-3d03-4175-9535-c4d95d67fdf5.mp4
+
+
+
+
