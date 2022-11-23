@@ -14,9 +14,7 @@ pip install -r requirements.txt
 python main.py
 ```
 Для того, чтобы выбрать свой видео файл используйте флаг --video_path
-
 Для сохранения обработанного видео испольузуйте флаг --save_video
-
 Для теста производительности используйте флаг --perfomance_test
 
 Процесс выбора данных, результаты обучения моделей и многое другое представлены в [отчете](https://github.com/Soul-Keeper/PPE-detection/blob/main/отчёт.docx)
