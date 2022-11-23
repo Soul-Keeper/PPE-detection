@@ -26,5 +26,6 @@ python main.py
 https://user-images.githubusercontent.com/60879213/203539565-6d996ab9-3d03-4175-9535-c4d95d67fdf5.mp4
 
 
-
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
