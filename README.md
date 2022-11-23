@@ -18,3 +18,6 @@ python main.py
 Для теста производительности используйте флаг --perfomance_test
 
 Процесс выбора данных, результаты обучения моделей и многое другое представлены в [отчете](https://github.com/Soul-Keeper/PPE-detection/blob/main/отчёт.docx)
+
+## Пример
+https://github.com/Soul-Keeper/PPE-detection/blob/main/result.mp4
