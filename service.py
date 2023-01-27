@@ -9,12 +9,12 @@ from video_processing import process_video
 INPUT_PATH = "videos/input/"
 OUTPUT_PATH = "videos/output/"
 
-st.title("test")
+st.title("Personal Protective Equipment detection module")
 
 input_file = st.file_uploader("Upload video", type=[".mp4"])
-st.write(input_file.name)
 
 if input_file is not None:
+    st.write("Video is processing, please wait...")
     with open(INPUT_PATH + input_file.name, mode='wb') as w:
         w.write(input_file.getvalue())
 
