@@ -29,9 +29,8 @@ https://user-images.githubusercontent.com/60879213/203539565-6d996ab9-3d03-4175-
 ## Метрики 
 https://wandb.ai/soul_keeper/PPE_first_iter?workspace=user-soul_keeper
 
-## Рбучение
-Для обучения собственной модели необходимо склонировать репозиторий [ultralytics](https://github.com/ultralytics/yolov5/blob/master)
-Все дальнейшие инструкции представлены в [туториале](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data)
+## Обучение
+Для обучения собственной модели необходимо склонировать репозиторий [ultralytics](https://github.com/ultralytics/yolov5/blob/master), дальнейшие инструкции представлены в [туториале](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
