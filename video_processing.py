@@ -1,5 +1,6 @@
 import cv2
 import torch
+import streamlit as st
 
 from my_utils import check_center, sqr_of_2_boxes, draw
 
@@ -11,11 +12,15 @@ def process_video(input_path, output_path) -> bool:
 
     cap = cv2.VideoCapture(input_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
+    total_frame = round(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     width = round(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = round(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
 
+    progress_bar = st.progress(0)
+
+    current_frame = 0
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -45,5 +50,9 @@ def process_video(input_path, output_path) -> bool:
         else:
             out.write(frame)
 
+        current_frame += 1
+        progress_bar.progress(round(current_frame/total_frame * 100))
+
     cap.release()
     out.release()
+    progress_bar.empty()

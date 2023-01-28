@@ -33,3 +33,4 @@ thop  # FLOPs computation
 opencv-python
 pynvml
 psutil
+streamlit
